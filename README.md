@@ -9,6 +9,6 @@ GseaGo is a user friendly toolkit for enrichment analysis.
 <br> 
 <br> 
 <br> 
-<img src="Fig/Result1.png">
+<img src="Fig/Result1.PNG">
 <br> 
 <br>
