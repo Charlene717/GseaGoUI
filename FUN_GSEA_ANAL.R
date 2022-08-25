@@ -246,8 +246,12 @@ FUN_GSEA_ANAL = function(DE_Extract.df, pathwayGeneSet = Pathway.all,
       ## 2.8.1 gseaplot2
       n <- nrow(y2)
       p8_1 <- gseaplot2(y2, geneSetID = 1, title = y2$Description[1])   # max NES
+      p8_1_2 <- gseaplot2(y2, geneSetID = 2, title = y2$Description[2])   # Sec NES
+
       p8_2 <- gseaplot2(y2, geneSetID = n, title = y2$Description[n])   # min NES
-      p8A <- cowplot::plot_grid(p8_1, p8_2, ncol = 1, labels = LETTERS[1:2])
+      p8_2_2 <- gseaplot2(y2, geneSetID = (n-1), title = y2$Description[(n-1)])   # min NES
+
+      p8A <- cowplot::plot_grid(p8_1,p8_1_2, p8_2,p8_2_2, ncol = 2, labels = LETTERS[1:4])
 
       # ## Use keyword (Overlay graphics)
       # try({

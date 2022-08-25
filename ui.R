@@ -204,10 +204,10 @@ ui =   fluidPage(
                         fluidPage(plotOutput("UpSetPlot",height = "800px", width = "1500px"))
                ),
                tabPanel("Enrichment plot",
-                        fluidPage(plotOutput("GseaPlot",height = "1000px", width = "1000px"))
+                        fluidPage(plotOutput("GseaPlot",height = "1000px", width = "1500px"))
                ),
                tabPanel("Overlay Enrichment plot",
-                        fluidPage(plotOutput("OverlayGseaPlot",height = "500px", width = "800px"))
+                        fluidPage(plotOutput("OverlayGseaPlot",height = "600px", width = "800px"))
                ),
                # tabPanel("SentFreq Dimension Reduction",
                #          fluidPage(img(src = "Monocle3_UMAP.PNG",

@@ -183,7 +183,7 @@ server <- function(input, output, session){
     output$GSEADotPlot <- renderPlot({
       GSEAResult <- GSEAResult.lt()
       Plot.GSEADot.Plot <-  GSEAResult[["GSEADot_Plot"]]
-      Plot.GSEADot.Plot %>% BeautifyggPlot(LegPos = c(0.9, 0.1),AxisTitleSize=1.7)
+      Plot.GSEADot.Plot %>% BeautifyggPlot(LegPos = c(0.9, 0.3),AxisTitleSize=1.7)
     })
 
     output$UpSetPlot <- renderPlot({
