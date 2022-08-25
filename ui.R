@@ -125,7 +125,7 @@ ui =   fluidPage(
                             hr(),
                             textInput("PhenoColSet", label = "Group by Phenotype","sample_type"),
                             textInput("PhenoType1Set", label = "Group by Phen Type1","Recurrent Tumor"),
-                            textInput("PhenoType2Set", label = "Group by Phen Type1","Primary Tumor"),
+                            textInput("PhenoType2Set", label = "Group by Phen Type2","Primary Tumor"),
 
 
 
