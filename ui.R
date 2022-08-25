@@ -84,7 +84,7 @@ ui =   fluidPage(
     sidebarPanel(
       fileInput("File_GeneExp", "Choose GeneExp File", accept = ".tsv", multiple = T),
       fileInput("File_Anno", "Choose Annotation File", accept = ".tsv", multiple = T),
-      fileInput("File_GeneSet", "Choose GeneSet Files", accept = ".tsv", multiple = F),
+      fileInput("File_GeneSet", "Choose GeneSet Files", accept = ".txt", multiple = F),
 
       # textInput("word_select", label = "Gene name","TP53"),
       # actionButton("RUNDEG", "DEG"),
@@ -198,7 +198,7 @@ ui =   fluidPage(
                         fluidPage(plotOutput("GSEABarPlot",height = "800px", width = "1500px"))
                         ),
                tabPanel("Dot plot",
-                        fluidPage(plotOutput("GSEADotPlot",height = "800px", width = "500px"))
+                        fluidPage(plotOutput("GSEADotPlot",height = "800px", width = "1000px"))
                        ),
                tabPanel("UpSet Plot",
                         fluidPage(plotOutput("UpSetPlot",height = "800px", width = "1500px"))
