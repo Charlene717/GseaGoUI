@@ -153,11 +153,20 @@ server <- function(input, output, session){
     })
 
     #### Dist. ####
-      output$DistPlt <- renderPlot({
-        Plot.Dist.lt <- Plot.Dist()
-        Plot.Dist.Plot <- Plot.Dist.lt[["TGeneDen_SD_Q.p"]]
-        Plot.Dist.Plot
-      })
+    output$DistPlt <- renderPlot({
+      if (length(input$File_GeneExp)>0){
+          Plot.Dist.lt <- Plot.Dist()
+          Plot.Dist.Plot <- Plot.Dist.lt[["TGeneDen_SD_Q.p"]]
+          Plot.Dist.Plot
+      }else{
+        print("Welcome to GseaGoUI!" %>% as.data.frame())
+      }
+    })
+      # output$DistPlt <- renderPlot({
+      #   Plot.Dist.lt <- Plot.Dist()
+      #   Plot.Dist.Plot <- Plot.Dist.lt[["TGeneDen_SD_Q.p"]]
+      #   Plot.Dist.Plot
+      # })
 
     #### DEG ####
     output$DEGMTX <- renderDataTable({
