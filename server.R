@@ -84,6 +84,8 @@ server <- function(input, output, session){
                                       TarGeneName = input$GeneNameSet, GroupMode = Mode_Group, SampleID = "X_INTEGRATION",
                                       Save.Path = Save.Path, SampleName = SampleName, AnnoName = "AvB")
       DE_Extract.df <- DEG_ANAL.lt[["DE_Extract.df"]]
+      rownames(DE_Extract.df) <- seq(1:nrow(DE_Extract.df))
+      DE_Extract.df
     })
 
     #### GSEA ####
