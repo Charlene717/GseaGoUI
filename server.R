@@ -132,10 +132,13 @@ server <- function(input, output, session){
     #### View input data ####
     # output$GeneExpOut <- renderTable({
     output$GeneExpOut <- renderDataTable({
-      # GeneExp_ReA()[c(1:20),] %>% as.data.frame()
-      datatable(GeneExp_ReA() %>% as.data.frame(),
-      options = list(searchHighlight = TRUE, pageLength = 50))
-    })
+      if (length(input$File_GeneExp)>0){
+        datatable(GeneExp_ReA() %>% as.data.frame(),
+                  options = list(searchHighlight = TRUE, pageLength = 50))
+      }else{
+        print("Welcome to GseaGoUI!" %>% as.data.frame())
+      }
+      })
 
     output$AnnoOut <- renderDataTable({
       # GeneExp_ReA()[c(1:20),] %>% as.data.frame()
