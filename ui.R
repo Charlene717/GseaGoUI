@@ -71,7 +71,7 @@
 ui =   fluidPage(
   # https://stackoverflow.com/questions/57037758/r-shiny-how-to-color-margin-of-title-panel
   titlePanel(h1("GseaGoUI",
-                style='background-color:#ece4db;
+                style='background-color:#e6d5f2;
                        color:#474973;
                        font-weight: 500;
                        font-family: Arial Black;
