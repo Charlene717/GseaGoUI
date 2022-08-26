@@ -96,6 +96,15 @@ ui =   fluidPage(
     # mainPanel(textOutput(outputId="BestSent")),
     mainPanel(
       tabsetPanel(
+        navbarMenu("Data preprocessing",
+                   tabPanel("Fliter by phenotype",
+                            textInput("FliterByPhenotype", label = "Pheno section","sample_type"),
+                   ),
+                   tabPanel("Fliter by GeneExp",
+                            textInput("FliterByGeneExp", label = "Gene name","TP53"),
+                   )
+        ),
+
         navbarMenu("Basic setting",
                    tabPanel("Group",
                             column(6,
@@ -126,10 +135,6 @@ ui =   fluidPage(
                             textInput("PhenoColSet", label = "Group by Phenotype","sample_type"),
                             textInput("PhenoType1Set", label = "Group by Phen Type1","Recurrent Tumor"),
                             textInput("PhenoType2Set", label = "Group by Phen Type2","Primary Tumor"),
-
-
-
-
                             ),
                    ),
                    tabPanel("DEG",
@@ -139,20 +144,29 @@ ui =   fluidPage(
                             hr(),
                             actionButton(inputId="RunDEG", label="Run",
                                          icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
-
+                            )
+                  ),
+        navbarMenu("GSEA setting",
+                   tabPanel("Fliter by phenotype",
+                            textInput("FliterByPhenotype", label = "Pheno section","sample_type"),
+                            ),
+                   tabPanel("Fliter by GeneExp",
+                            textInput("FliterByGeneExp", label = "Gene name","TP53"),
                             ),
                    tabPanel("GSEA",
                             fluidPage(fluidRow(dataTableOutput("XXX3")))
-                            )
+                   )
+
                   ),
-          navbarMenu("Geneset setting",
-                     tabPanel("Com",
-                              textInput("word_selectXXX", label = "Gene name","TP53"),
-                              ),
-                     tabPanel("Fliter",
-                              textInput("word_selectXXX2", label = "Gene name","TP53"),
-                             )
-                    )
+
+        navbarMenu("Geneset setting",
+                   tabPanel("Com",
+                            textInput("word_selectXXX", label = "Gene name","TP53"),
+                            ),
+                   tabPanel("Fliter",
+                            textInput("word_selectXXX2", label = "Gene name","TP53"),
+                           )
+                  )
       )
 
     ),
