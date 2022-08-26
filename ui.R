@@ -1,41 +1,13 @@
 
-##### Load Packages #####
-  if(!require("tidyverse")) install.packages("tidyverse")
-  if(!require("Seurat")) install.packages("Seurat")
-  if(!require("SeuratData")) install.packages("SeuratData")
-  if(!require("patchwork")) install.packages("patchwork")
-  if(!require("plyr")) install.packages("plyr")
-  if(!require("eoffice")) install.packages("eoffice")
-  if(!require("DT")) install.packages("DT")
 
-  library(tidyverse)
-  library(Seurat)
-  library(SeuratData)
-  library(patchwork)
-  library(plyr)
-  library(eoffice)
-  library(DT)
 
-##### Function setting #####
-  ## Call function
-  source("FUN_Beautify_ggplot.R")
-  source("FUN_Find_Markers.R")
-  source("FUN_VolcanoPlot.R")
-  source("FUN_GSEA_LargeGeneSet.R")
-  source("FUN_GSEA_ggplot.R")
-  source("FUN_ggPlot_vline.R")
 
-  source("FUN_DistrPlot.R")
-  source("FUN_Group_GE.R")
-  source("FUN_DEG_Analysis.R")
-  source("FUN_GSEA_ANAL.R")
-  source("FUN_GSEA_ForOFFL.R")
 
 
 ##### Load Packages  #####
   #### Basic installation ####
   ## Check whether the installation of those packages is required from basic
-  Package.set <- c("tidyverse","ggplot2")
+  Package.set <- c("tidyverse","ggplot2","Seurat","SeuratData","patchwork","plyr","eoffice","DT")
   for (i in 1:length(Package.set)) {
     if (!requireNamespace(Package.set[i], quietly = TRUE)){
       install.packages(Package.set[i])
@@ -63,10 +35,27 @@
   lapply(Package.set, library, character.only = TRUE)
   rm(Package.set,i)
 
-  options(stringsAsFactors = FALSE)
+  # options(stringsAsFactors = FALSE)
 
 
 # Sys.setlocale(category = "LC_ALL", locale = "UTF-8")
+
+
+##### Function setting #####
+  ## Call function
+  source("FUN_Beautify_ggplot.R")
+  source("FUN_Find_Markers.R")
+  source("FUN_VolcanoPlot.R")
+  source("FUN_GSEA_LargeGeneSet.R")
+  source("FUN_GSEA_ggplot.R")
+  source("FUN_ggPlot_vline.R")
+
+  source("FUN_DistrPlot.R")
+  source("FUN_Group_GE.R")
+  source("FUN_DEG_Analysis.R")
+  source("FUN_GSEA_ANAL.R")
+  source("FUN_GSEA_ForOFFL.R")
+
 ##### UI ########
   ui <- navbarPage("GseaGoUI",
 ###############################################################################################################################################
@@ -75,25 +64,25 @@
                     # https://stackoverflow.com/questions/57037758/r-shiny-how-to-color-margin-of-title-panel
                     titlePanel(h1("GseaGoUI",
                                   style='background-color:#e6d5f2;
-               color:#474973;
-               font-weight: 500;
-               font-family: Arial Black;
-               line-height: 1.2;
-               padding-left: 15px'
-                    )
-                    ),
+                               color:#474973;
+                               font-weight: 500;
+                               font-family: Arial Black;
+                               line-height: 1.2;
+                               padding-left: 15px'
+                                 )
+                               ),
 
                     sidebarLayout(
                       sidebarPanel(
                         fileInput("File_GeneExp", "Choose GeneExp File", accept = ".tsv", multiple = T),
                         fileInput("File_Anno", "Choose Annotation File", accept = ".tsv", multiple = T),
                         fileInput("File_GeneSet", "Choose GeneSet Files", accept = ".txt", multiple = F),
-
-                        # textInput("word_select", label = "Gene name","TP53"),
-                        # actionButton("RUNDEG", "DEG"),
-                        actionButton("RunOFL", "OFL"),
-                        actionButton("RunGSEA", "GSEA"),
-                        # actionButton("RUNGSEA", "ORA")
+#
+#                         # textInput("word_select", label = "Gene name","TP53"),
+#                         # actionButton("RUNDEG", "DEG"),
+#                         actionButton("RunOFL", "OFL"),
+#                         actionButton("RunGSEA", "GSEA"),
+#                         # actionButton("RUNGSEA", "ORA")
                       ),
 
                       # mainPanel(textOutput(outputId="BestSent")),
@@ -109,33 +98,37 @@
                           ),
 
                           navbarMenu("Group setting",
-                                     tabPanel("Grouping",
+                                     tabPanel("Group by Pheno",
                                               column(6,
                                                      fluidPage(plotOutput("DistPlt"))
-                                              ),
-                                              column(3,
-                                                     selectizeInput("GroupMethod", label = "Group by",
-                                                                    choices = list("GeneExp" = "GroupByGene", "Phenotype" = "GroupByPheno"),
-                                                                    selected = "GeneExp"),
-                                                     # br(),
-                                                     # fluidPage(img(src = "Monocle3_UMAP.PNG",
-                                                     #               height = "450px", width = "1700px", align = "center"))
-                                                     hr(),
-                                                     textInput("GeneNameSet", label = "Group by GeneExp","TP53"),
-                                                     selectizeInput("GroupByGeneStats", label = "Group by GeneExp Thr",
-                                                                    choices = list("Mean1SD" = "Mean1SD", "Quartiles" = "Quartiles"),
-                                                                    selected = "Mean1SD"),
-                                                     hr(),
-                                                     actionButton(inputId="DistPlot", label="Run",
-                                                                  icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
                                               ),
                                               column(3,
                                                      hr(),
                                                      textInput("PhenoColSet", label = "Group by Phenotype","sample_type"),
                                                      textInput("PhenoType1Set", label = "Group by Phen Type1","Recurrent Tumor"),
                                                      textInput("PhenoType2Set", label = "Group by Phen Type2","Primary Tumor"),
-                                              ),
-                                     )
+                                                     hr(),
+                                                     actionButton(inputId="DistPlot", label="Run",
+                                                                  icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
+
+                                              )
+                                     ),
+                                     tabPanel("Group by GeneExp",
+                                                column(6,
+                                                       fluidPage(plotOutput("DistPlt2"))
+                                                ),
+                                                column(3,
+                                                       # br(),
+                                                       hr(),
+                                                       textInput("GeneNameSet", label = "Group by GeneExp","TP53"),
+                                                       selectizeInput("GroupByGeneStats", label = "Group by GeneExp Thr",
+                                                                      choices = list("Mean1SD" = "Mean1SD", "Quartiles" = "Quartiles"),
+                                                                      selected = "Mean1SD"),
+                                                       hr(),
+                                                       actionButton(inputId="DistPlot2", label="Run",
+                                                                    icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
+                                                )
+                                              )
                           ),
 
                           navbarMenu("DEG setting",
@@ -148,33 +141,22 @@
                                      ),
                                      tabPanel("Advance setting",
                                               textInput("XXXX2", label = "Gene name","TP53"),
-                                     ),
-                                     tabPanel("GSEA",
-                                              fluidPage(fluidRow(dataTableOutput("XXX3")))
                                      )
 
                           ),
 
-                          navbarMenu("GSEA setting",
-                                     tabPanel("Basic setting",
-                                              textInput("XXXX1", label = "Pheno section","sample_type"),
-                                     ),
-                                     tabPanel("Advance setting",
-                                              textInput("XXXX2", label = "Gene name","TP53"),
-                                     ),
-                                     tabPanel("GSEA",
-                                              fluidPage(fluidRow(dataTableOutput("XXX3")))
-                                     )
+                          tabPanel("GSEA setting",
+                                   actionButton("RunOFL", "OFL"),
+                                   actionButton("RunGSEA", "GSEA"),
+
 
                           ),
 
-                          navbarMenu("GO setting",
-                                     tabPanel("Com",
-                                              textInput("word_selectXXX", label = "Gene name","TP53"),
-                                     ),
-                                     tabPanel("Fliter",
-                                              textInput("word_selectXXX2", label = "Gene name","TP53"),
-                                     )
+                          tabPanel("GO setting",
+                                   actionButton("RunOFL", "OFL"),
+                                   actionButton("RunGO", "GO"),
+
+
                           )
                         )
 
@@ -254,6 +236,9 @@
          ),
 ###############################################################################################################################################
          tabPanel("Custom Gene Sets"),
+###############################################################################################################################################
+         tabPanel("MultiGroup Enrichment Analysis"),
+
 ###############################################################################################################################################
          tabPanel("Visualization"),
 ###############################################################################################################################################
