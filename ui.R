@@ -108,7 +108,7 @@
                                      )
                           ),
 
-                          navbarMenu("Basic setting",
+                          navbarMenu("Group setting",
                                      tabPanel("Grouping",
                                               column(6,
                                                      fluidPage(plotOutput("DistPlt"))
@@ -135,14 +135,24 @@
                                                      textInput("PhenoType1Set", label = "Group by Phen Type1","Recurrent Tumor"),
                                                      textInput("PhenoType2Set", label = "Group by Phen Type2","Primary Tumor"),
                                               ),
-                                     ),
+                                     )
+                          ),
+
+                          navbarMenu("DEG setting",
                                      tabPanel("DEG Analysis",
                                               textInput("LogFCSet", label = "LogFC","1"),
                                               textInput("PvalueCSet", label = "Pval","0.05"),
                                               hr(),
                                               actionButton(inputId="RunDEG", label="Run",
                                                            icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
+                                     ),
+                                     tabPanel("Advance setting",
+                                              textInput("XXXX2", label = "Gene name","TP53"),
+                                     ),
+                                     tabPanel("GSEA",
+                                              fluidPage(fluidRow(dataTableOutput("XXX3")))
                                      )
+
                           ),
 
                           navbarMenu("GSEA setting",
@@ -158,7 +168,7 @@
 
                           ),
 
-                          navbarMenu("Geneset setting",
+                          navbarMenu("GO setting",
                                      tabPanel("Com",
                                               textInput("word_selectXXX", label = "Gene name","TP53"),
                                      ),
@@ -184,7 +194,7 @@
                       #          ),
 
                       ##### Text search Page #####
-                      navbarMenu("View input",
+                      navbarMenu("View Input",
                                  tabPanel("GeneExp",
                                           fluidPage(fluidRow(dataTableOutput("GeneExpOut")))
                                  ),
@@ -245,12 +255,12 @@
 ###############################################################################################################################################
          tabPanel("Custom Gene Sets"),
 ###############################################################################################################################################
-         tabPanel("Classification and Visualization"),
+         tabPanel("Visualization"),
 ###############################################################################################################################################
 
          navbarMenu("About",
                     tabPanel("Summary"),
-                    tabPanel("Tutoría"),
+                    tabPanel("Tutorial"),
                     tabPanel("Citations"),
                     tabPanel("Release"),
                     tabPanel("Terms of Use"),
