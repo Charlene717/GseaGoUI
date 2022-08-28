@@ -1,13 +1,9 @@
 
 
-
-
-
-
 ##### Load Packages  #####
   #### Basic installation ####
   ## Check whether the installation of those packages is required from basic
-  Package.set <- c("tidyverse","ggplot2","Seurat","SeuratData","patchwork","plyr","eoffice","DT")
+  Package.set <- c("tidyverse","ggplot2","Seurat","SeuratData","patchwork","plyr","eoffice","DT","shiny","shinyFiles")
   for (i in 1:length(Package.set)) {
     if (!requireNamespace(Package.set[i], quietly = TRUE)){
       install.packages(Package.set[i])
