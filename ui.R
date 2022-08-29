@@ -148,9 +148,9 @@
 
                           ),
 
-                          tabPanel("GO setting",
+                          tabPanel("ORA setting",
                                    actionButton("RunOFL", "OFL"),
-                                   actionButton("RunGO", "GO"),
+                                   actionButton("RunGO", "ORA"),
 
 
                           )
@@ -236,7 +236,11 @@
          tabPanel("MultiGroup Enrichment Analysis"),
 
 ###############################################################################################################################################
-         tabPanel("Visualization"),
+         navbarMenu("Visualization",
+                    tabPanel("From official GSEA results"),
+                    tabPanel("From official Metascape results"),
+                    tabPanel("From official GO results")
+         ),
 ###############################################################################################################################################
 
          navbarMenu("About",
@@ -246,7 +250,6 @@
                     tabPanel("Release"),
                     tabPanel("Terms of Use"),
                     tabPanel("Contact")
-
                     )
   )
 
