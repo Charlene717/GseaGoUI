@@ -89,13 +89,15 @@
                       # mainPanel(textOutput(outputId="BestSent")),
                       mainPanel(
                         tabsetPanel(
-                          navbarMenu("Data preprocessing",
-                                     tabPanel("Fliter by phenotype",
-                                              textInput("FliterByPhenotype", label = "Pheno section","sample_type"),
-                                     ),
-                                     tabPanel("Fliter by GeneExp",
-                                              textInput("FliterByGeneExp", label = "Gene name","TP53"),
-                                     )
+                          tabPanel("Data preprocessing",
+                                   h3("Fliter by Phenotype"),
+                                   textInput("FliterByPhenotype", label = "Phenotype section","sample_type"),
+                                   textInput("FliterByPhenotype2", label = "Group section","Recurrent Tumor, Primary Tumor"),
+                                   h3("Fliter by Gene expression"),
+                                   textInput("FliterByGeneExp", label = "Gene name","TP53"),
+                                   textInput("MaxGeneExp", label = "Max GeneExp",""),
+                                   textInput("MinGeneExp", label = "Min GeneExp",""),
+                                   actionButton(inputId="FilterSet", label="Filter", icon=icon(name = "fa-solid fa-filter-circle-xmark")) # https://fontawesomeicons.com/
                           ),
 
                           navbarMenu("Group setting",
