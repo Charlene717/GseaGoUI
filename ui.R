@@ -138,23 +138,15 @@
                                               )
                           ),
 
-                          navbarMenu("DEG setting",
-                                     tabPanel("Basic setting",
-                                              h3("Filter"),
-                                              hr(),
-                                              textInput("LogFCSet", label = "LogFC Cutoff","1"),
-                                              textInput("PvalueCSet", label = "P Value Cutoff","0.05"),
-                                              hr(),
-                                              actionButton(inputId="RunDEG", label="Run DEG", icon=icon(name = "gears")) # https://fontawesomeicons.com/
-                                     ),
-                                     tabPanel("Advance setting",
-                                              textInput("XXXX2", label = "Gene name","TP53"),
-                                     ),
-                                     tabPanel("Filter setting",
-                                              textInput("XXXX3", label = "Gene name","TP53"),
-                                     )
+                          tabPanel("DEG setting",
 
-                          ),
+                                    h3("Filter"),
+                                    hr(),
+                                    textInput("LogFCSet", label = "LogFC Cutoff","1"),
+                                    textInput("PvalueCSet", label = "P Value Cutoff","0.05"),
+                                    hr(),
+                                    actionButton(inputId="RunDEG", label="Run DEG", icon=icon(name = "gears")) # https://fontawesomeicons.com/
+                                  ),
 
                           tabPanel("GSEA setting",
                                    column(6,
@@ -197,7 +189,7 @@
                                           textInput("GOSet_CustomizedGS", label = "Customized Gene Sets",""),
                                           br(),
                                           br(),
-                                          actionButton("RunOFL", "Official files", icon=icon(name = "fas fa-file-download")),
+                                          actionButton("RunOFL", "Official file", icon=icon(name = "fas fa-file-download")),
                                           actionButton("RunGO", "Run ORA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
 
                                    )
