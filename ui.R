@@ -167,9 +167,6 @@
                                                   selected = "GSEASet_GeneSet"),
                                    textInput("GSEASet_MaxGSize", label = "Max geneset size","500"),
                                    textInput("GSEASet_MinGSize", label = "Min geneset size","15"),
-                                   # hr(),
-                                   # actionButton("RunOFL", "Official files", icon=icon(name = "fas fa-file-download")),
-                                   # actionButton("RunGSEA", "Run GSEA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                                    ),
                                    column(6,
                                           h3("Visualization settings"),
@@ -191,10 +188,6 @@
                                    textInput("ORASet_MinOverlap", label = "Min Overlap","3"),
                                    textInput("ORASet_PValue", label = "P Value Cutoff","0.05"),
                                    textInput("ORASet_MinEnrich", label = "Min Enrichment","1.5"),
-                                   br(),
-                                   br(),
-                                   actionButton("RunOFL", "Official files", icon=icon(name = "fas fa-file-download")),
-                                   actionButton("RunGO", "Run ORA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                                    ),
                                    column(6,
                                           h3("Visualization settings"),
@@ -204,6 +197,9 @@
                                           textInput("GOSet_CustomizedGS", label = "Customized Gene Sets",""),
                                           br(),
                                           br(),
+                                          actionButton("RunOFL", "Official files", icon=icon(name = "fas fa-file-download")),
+                                          actionButton("RunGO", "Run ORA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
+
                                    )
 
                           )
