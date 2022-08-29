@@ -81,12 +81,6 @@
                                             padding-left: 0px'),
                                    tags$label("Save Path", class="btn btn-primary",
                                    tags$input(id = "fileIn", webkitdirectory = TRUE, type = "file", style="display: none;", onchange="pressed()"))),
-#
-#                         # textInput("word_select", label = "Gene name","TP53"),
-#                         # actionButton("RUNDEG", "DEG"),
-#                         actionButton("RunOFL", "OFL"),
-#                         actionButton("RunGSEA", "GSEA"),
-#                         # actionButton("RUNGSEA", "ORA")
                       ),
 
                       # mainPanel(textOutput(outputId="BestSent")),
@@ -170,7 +164,7 @@
                       position = c("left")
                     ),
 
-                    ##### Summary Page #####
+                    ##### Summary Page ##################################################################
                     tabsetPanel(
                       # tabPanel("Summary",
                       #          fluidPage(
@@ -192,6 +186,17 @@
                                  )
                       ),
 
+                      ##### Data preprocessing Result Page #####
+                      navbarMenu("Cleaned data",
+                                 tabPanel("GeneExp",
+                                          fluidPage(fluidRow(dataTableOutput("GeneExpCleanOut")))
+                                 ),
+                                 tabPanel("Annotation",
+                                          fluidPage(fluidRow(dataTableOutput("AnnoCleanOut")))
+                                 )
+                      ),
+
+                      ##### Analysis Result Page: DEG Analysis #####
                       navbarMenu("DEG Analysis",
                                  tabPanel("DEG MTX",
                                           fluidPage(fluidRow(dataTableOutput("DEGMTX")))
@@ -201,7 +206,7 @@
                                  )
                       ),
 
-                      ##### Analysis search Page #####
+                      ##### Analysis Result Page: GSEA Analysis #####
                       navbarMenu("GSEA Analysis",
                                  tabPanel("Bar plot",
                                           fluidPage(plotOutput("GSEABarPlot",height = "800px", width = "1500px"))
@@ -223,13 +228,19 @@
                                  #                        height = "450px", width = "1700px", align = "center"), br())
                                  # )
                       ),
-                      ##### Analysis search Page #####
-                      navbarMenu("GO Analysis",
+                      ##### Analysis Result Page: GO Analysis #####
+                      navbarMenu("ORA Analysis",
                                  tabPanel("Bar plot",
                                           fluidPage(plotOutput("GOBarPlot",height = "800px", width = "1500px"))
                                  ),
                                  tabPanel("Dot plot",
                                           fluidPage(plotOutput("GODotPlot",height = "800px", width = "1000px"))
+                                 ),
+                                 tabPanel("Network plot",
+                                          fluidPage(plotOutput("GONetworkPlot",height = "800px", width = "1000px"))
+                                 ),
+                                 tabPanel("Network plot2",
+                                          fluidPage(plotOutput("GONetworkPlot2",height = "800px", width = "1000px"))
                                  ),
                                  tabPanel("UpSet Plot",
                                           fluidPage(plotOutput("GOUpSetPlot",height = "800px", width = "1500px"))
