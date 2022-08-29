@@ -73,6 +73,14 @@
                         fileInput("File_GeneExp", "Choose GeneExp File", accept = ".tsv", multiple = T),
                         fileInput("File_Anno", "Choose Annotation File", accept = ".tsv", multiple = T),
                         fileInput("File_GeneSet", "Choose GeneSet Files", accept = ".txt", multiple = F),
+                        hr(),
+                        tags$div(h2("Choose the path to save the results",
+                                    style= 'color:#474973;
+                                            font-size: 1.7rem; line-height: 1.7rem;
+                                            font-family: Arial Black;
+                                            padding-left: 0px'),
+                                   tags$label("Save Path", class="btn btn-primary",
+                                   tags$input(id = "fileIn", webkitdirectory = TRUE, type = "file", style="display: none;", onchange="pressed()"))),
 #
 #                         # textInput("word_select", label = "Gene name","TP53"),
 #                         # actionButton("RUNDEG", "DEG"),
