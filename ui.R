@@ -142,8 +142,8 @@
                                      tabPanel("Basic setting",
                                               h3("Filter"),
                                               hr(),
-                                              textInput("LogFCSet", label = "LogFC","1"),
-                                              textInput("PvalueCSet", label = "Pval","0.05"),
+                                              textInput("LogFCSet", label = "LogFC Cutoff","1"),
+                                              textInput("PvalueCSet", label = "P Value Cutoff","0.05"),
                                               hr(),
                                               actionButton(inputId="RunDEG", label="Run DEG", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                                      ),
@@ -162,6 +162,12 @@
                           ),
 
                           tabPanel("ORA setting",
+                                   h3("ORA Enrichment Analysis"),
+                                   hr(),
+                                   textInput("ORASet_MinOverlap", label = "Min Overlap","3"),
+                                   textInput("ORASet_PValue", label = "P Value Cutoff","0.05"),
+                                   textInput("ORASet_MinEnrich", label = "Min Enrichment","1.5"),
+                                   hr(),
                                    actionButton("RunOFL", "Official files", icon=icon(name = "fa-solid fa-file-arrow-down")),
                                    actionButton("RunGO", "Run ORA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                           )
