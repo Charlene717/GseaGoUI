@@ -102,10 +102,11 @@
                                                      fluidPage(plotOutput("DistPlt2"))
                                               ),
                                               column(3,
+                                                     h3("Group by Phenotype"),
                                                      hr(),
-                                                     textInput("PhenoColSet", label = "Group by Phenotype","sample_type"),
-                                                     textInput("PhenoType1Set", label = "Group by Phen Type1","Recurrent Tumor"),
-                                                     textInput("PhenoType2Set", label = "Group by Phen Type2","Primary Tumor"),
+                                                     textInput("PhenoColSet", label = "Phenotype","sample_type"),
+                                                     textInput("PhenoType1Set", label = "Group 1","Recurrent Tumor"),
+                                                     textInput("PhenoType2Set", label = "Group 2","Primary Tumor"),
                                                      hr(),
                                                      actionButton(inputId="DistPlot2", label="Run",
                                                                   icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
@@ -118,9 +119,10 @@
                                                 ),
                                                 column(3,
                                                        # br(),
+                                                       h3("Group by Gene Expression"),
                                                        hr(),
-                                                       textInput("GeneNameSet", label = "Group by GeneExp","TP53"),
-                                                       selectizeInput("GroupByGeneStats", label = "Group by GeneExp Thr",
+                                                       textInput("GeneNameSet", label = "Gene name","TP53"),
+                                                       selectizeInput("GroupByGeneStats", label = "Thr of GeneExp",
                                                                       choices = list("Mean1SD" = "Mean1SD", "Quartiles" = "Quartiles"),
                                                                       selected = "Mean1SD"),
                                                        hr(),
@@ -131,7 +133,7 @@
                           ),
 
                           navbarMenu("DEG setting",
-                                     tabPanel("DEG Analysis",
+                                     tabPanel("Basic setting",
                                               textInput("LogFCSet", label = "LogFC","1"),
                                               textInput("PvalueCSet", label = "Pval","0.05"),
                                               hr(),
@@ -140,6 +142,9 @@
                                      ),
                                      tabPanel("Advance setting",
                                               textInput("XXXX2", label = "Gene name","TP53"),
+                                     ),
+                                     tabPanel("Filter setting",
+                                              textInput("XXXX3", label = "Gene name","TP53"),
                                      )
 
                           ),
