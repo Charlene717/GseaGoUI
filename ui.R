@@ -122,15 +122,19 @@
                                                        h3("Group by Gene Expression"),
                                                        hr(),
                                                        textInput("GeneNameSet", label = "Gene name","TP53"),
-                                                       selectizeInput("GroupByGeneStats", label = "Thr of GeneExp",
+                                                       selectizeInput("GroupByGeneStats", label = "Cutoff of GeneExp",
                                                                       choices = list("Mean" = "Mean", "Mean+1SD" = "Mean1SD", "Mean+2SD" = "Mean2SD", "Mean+3SD" = "Mean3SD",
                                                                                      "Median" = "Median" , "Quartiles" = "Quartiles",
                                                                                      "Customize Cutoff" = "CustomizeCutoff"),
                                                                       selected = "Mean1SD"),
-                                                       hr(),
+                                                       column(6,
+                                                       textInput("UpBoundGeneExp", label = "Upper Cutoff","1")),
+                                                       column(6,
+                                                       textInput("LowBoundGeneExp", label = "Lower Cutoff","1")),
+                                                       column(12,hr()),
                                                        actionButton(inputId="DistPlot", label="Run",
                                                                     icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
-                                                )
+                                                ),
                                               )
                           ),
 
