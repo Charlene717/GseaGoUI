@@ -53,21 +53,23 @@
   source("FUN_GSEA_ForOFFL.R")
 
 ##### UI ########
-  ui <- navbarPage("GseaGoUI",
+  ui <- navbarPage(h1("GseaGoUI",
+                      style='background-color:#a7c1d9; color:#0c3d6b; font-family: Arial Black' ),
 ###############################################################################################################################################
       navbarMenu("Enrichment Analysis",
 #####*********** Basic Enrichment Analysis ***********#####
          tabPanel("Basic",
                   fluidPage(
                     # https://stackoverflow.com/questions/57037758/r-shiny-how-to-color-margin-of-title-panel
-                    titlePanel(h1("GseaGoUI",
-                                  style='background-color:#e6d5f2;
-                                         color:#474973;
-                                         font-weight: 500;
-                                         font-family: Arial Black;
-                                         line-height: 1.2;
-                                         padding-left: 15px'
-                                 )
+                    titlePanel(h3("GseaGoUI")
+                                # h1("GseaGoUI",
+                                #   style='background-color:#e6d5f2;
+                                #          color:#474973;
+                                #          font-weight: 500;
+                                #          font-family: Arial Black;
+                                #          line-height: 1.2;
+                                #          padding-left: 15px'
+                                #  )
                                ),
 
                     sidebarLayout(
@@ -305,6 +307,18 @@
                       )
                     )
                   ),
+                  # style = "background-color: #DEEBF7",skin = "blue",
+                  # tags$head(tags$style('.headerrow{height:8vh; background-color:#267dff}')),
+                  tags$style(HTML("
+                  .navbar-default .navbar-brand {color:white;}
+                  .navbar-default .navbar-brand:hover {color:white;}
+                  .navbar { background-color:#275682;}
+                  .navbar-default .navbar-nav > li > a {color:white;}
+                  .navbar-default .navbar-nav > .active > a,
+                  .navbar-default .navbar-nav > .active > a:focus,
+                  .navbar-default .navbar-nav > .active > a:hover {color:black;background-color:white;}
+                  .navbar-default .navbar-nav > li > a:hover {color:white;background-color:#275682;text-decoration}
+                  "))
          ),
 #####*********** MultiGroup Enrichment Analysis ***********#####
          tabPanel("MultiGroup")
@@ -327,6 +341,9 @@
                     tabPanel("Terms of Use"),
                     tabPanel("Contact")
                     )
+
+###############################################################################################################################################
+
   )
 
 
