@@ -104,7 +104,7 @@
                           navbarMenu("Group setting",
                                      tabPanel("Group by Pheno",
                                               column(6,
-                                                     fluidPage(plotOutput("DistPlt"))
+                                                     fluidPage(plotOutput("DistPlt2"))
                                               ),
                                               column(3,
                                                      hr(),
@@ -112,14 +112,14 @@
                                                      textInput("PhenoType1Set", label = "Group by Phen Type1","Recurrent Tumor"),
                                                      textInput("PhenoType2Set", label = "Group by Phen Type2","Primary Tumor"),
                                                      hr(),
-                                                     actionButton(inputId="DistPlot", label="Run",
+                                                     actionButton(inputId="DistPlot2", label="Run",
                                                                   icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
 
                                               )
                                      ),
                                      tabPanel("Group by GeneExp",
                                                 column(6,
-                                                       fluidPage(plotOutput("DistPlt2"))
+                                                       fluidPage(plotOutput("DistPlt"))
                                                 ),
                                                 column(3,
                                                        # br(),
@@ -129,7 +129,7 @@
                                                                       choices = list("Mean1SD" = "Mean1SD", "Quartiles" = "Quartiles"),
                                                                       selected = "Mean1SD"),
                                                        hr(),
-                                                       actionButton(inputId="DistPlot2", label="Run",
+                                                       actionButton(inputId="DistPlot", label="Run",
                                                                     icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
                                                 )
                                               )
