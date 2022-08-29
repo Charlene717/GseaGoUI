@@ -74,6 +74,7 @@
                         fileInput("File_Anno", "Choose Annotation File", accept = ".tsv", multiple = T),
                         fileInput("File_GeneSet", "Choose GeneSet Files", accept = ".txt", multiple = F),
                         hr(),
+                        # https://stackoverflow.com/questions/39196743/interactive-directory-input-in-shiny-app-r
                         tags$div(h2("Choose the path to save the results",
                                     style= 'color:#474973;
                                             font-size: 1.7rem; line-height: 1.7rem;
