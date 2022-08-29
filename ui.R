@@ -134,7 +134,7 @@
                                                        textInput("LowBoundGeneExp", label = "Lower Cutoff","1")),
                                                        column(12,hr()),
                                                        actionButton(inputId="DistPlot", label="Set group", icon=icon(name = "gears")) # https://fontawesomeicons.com/
-                                                ),
+                                                )
                                               )
                           ),
 
@@ -157,7 +157,17 @@
                           ),
 
                           tabPanel("GSEA setting",
-                                   actionButton("RunOFL", "Official files", icon=icon(name = "fa-solid fa-file-arrow-down")),
+                                   h3("GSEA Analysis"),
+                                   hr(),
+                                   textInput("GSEASet_NumPermu", label = "Number of Permutations","1000"),
+                                   selectizeInput("GSEASet_PermuType", label = "Permutation type",
+                                                  choices = list("PhenoType" = "GSEASet_PhenoType",
+                                                                 "GeneSet" = "GSEASet_GeneSet"),
+                                                  selected = "GSEASet_GeneSet"),
+                                   textInput("GSEASet_MaxGSize", label = "Max geneset size","500"),
+                                   textInput("GSEASet_MinGSize", label = "Min geneset size","15"),
+                                   hr(),
+                                   actionButton("RunOFL", "Official files", icon=icon(name = "fas fa-file-download")),
                                    actionButton("RunGSEA", "Run GSEA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                           ),
 
@@ -168,7 +178,7 @@
                                    textInput("ORASet_PValue", label = "P Value Cutoff","0.05"),
                                    textInput("ORASet_MinEnrich", label = "Min Enrichment","1.5"),
                                    hr(),
-                                   actionButton("RunOFL", "Official files", icon=icon(name = "fa-solid fa-file-arrow-down")),
+                                   actionButton("RunOFL", "Official files", icon=icon(name = "fas fa-file-download")),
                                    actionButton("RunGO", "Run ORA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                           )
                         )
