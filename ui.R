@@ -110,8 +110,7 @@
                                                      textInput("PhenoType1Set", label = "Group 1","Recurrent Tumor"),
                                                      textInput("PhenoType2Set", label = "Group 2","Primary Tumor"),
                                                      hr(),
-                                                     actionButton(inputId="DistPlot2", label="Run",
-                                                                  icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
+                                                     actionButton(inputId="DistPlot2", label="Set group", icon=icon(name = "gears")) # https://fontawesomeicons.com/
 
                                               )
                                      ),
@@ -134,19 +133,19 @@
                                                        column(6,
                                                        textInput("LowBoundGeneExp", label = "Lower Cutoff","1")),
                                                        column(12,hr()),
-                                                       actionButton(inputId="DistPlot", label="Run",
-                                                                    icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
+                                                       actionButton(inputId="DistPlot", label="Set group", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                                                 ),
                                               )
                           ),
 
                           navbarMenu("DEG setting",
                                      tabPanel("Basic setting",
+                                              h3("Filter"),
+                                              hr(),
                                               textInput("LogFCSet", label = "LogFC","1"),
                                               textInput("PvalueCSet", label = "Pval","0.05"),
                                               hr(),
-                                              actionButton(inputId="RunDEG", label="Run",
-                                                           icon=icon(name = "gears")) # https://fontawesomeicons.com/palette
+                                              actionButton(inputId="RunDEG", label="Run DEG", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                                      ),
                                      tabPanel("Advance setting",
                                               textInput("XXXX2", label = "Gene name","TP53"),
@@ -158,17 +157,13 @@
                           ),
 
                           tabPanel("GSEA setting",
-                                   actionButton("RunOFL", "OFL"),
-                                   actionButton("RunGSEA", "GSEA"),
-
-
+                                   actionButton("RunOFL", "Official files", icon=icon(name = "fa-solid fa-file-arrow-down")),
+                                   actionButton("RunGSEA", "Run GSEA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                           ),
 
                           tabPanel("ORA setting",
-                                   actionButton("RunOFL", "OFL"),
-                                   actionButton("RunGO", "ORA"),
-
-
+                                   actionButton("RunOFL", "Official files", icon=icon(name = "fa-solid fa-file-arrow-down")),
+                                   actionButton("RunGO", "Run ORA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                           )
                         )
 
