@@ -57,7 +57,7 @@
 
                    # p(strong(code("GseaGoUI", style='background-color:#a7c1d9; color:#0c3d6b; font-family: Arial Black'))),
                    p(strong(img(src = "GSEAGOUI.png",
-                                height = "80px", width = "75px",
+                                height = "90px", width = "85px",
                                 align = "center"))),
 
                       # h1("GseaGoUI",
