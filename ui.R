@@ -53,15 +53,21 @@
   source("FUN_GSEA_ForOFFL.R")
 
 ##### UI ########
-  ui <- navbarPage(h1("GseaGoUI",
-                      style='background-color:#a7c1d9; color:#0c3d6b; font-family: Arial Black' ),
+  ui <- navbarPage(
+                   p(strong(code("GseaGoUI", style='background-color:#a7c1d9; color:#0c3d6b; font-family: Arial Black'))),
+                      # h1("GseaGoUI",
+                      # style='background-color:#a7c1d9; color:#0c3d6b; font-family: Arial Black' ),
 ###############################################################################################################################################
       navbarMenu("Enrichment Analysis",
+                 img(src = "GSEAGO.png",
+                     height = "120px", width = "110px",
+                     align = "center"),
+
 #####*********** Basic Enrichment Analysis ***********#####
          tabPanel("Basic",
                   fluidPage(
                     # https://stackoverflow.com/questions/57037758/r-shiny-how-to-color-margin-of-title-panel
-                    titlePanel(h3("GseaGoUI")
+                    titlePanel(h3("GseaGoUI"),
                                 # h1("GseaGoUI",
                                 #   style='background-color:#e6d5f2;
                                 #          color:#474973;
@@ -70,6 +76,7 @@
                                 #          line-height: 1.2;
                                 #          padding-left: 15px'
                                 #  )
+
                                ),
 
                     sidebarLayout(
