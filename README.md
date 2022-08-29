@@ -1,6 +1,5 @@
-# GseaGoUI
-## A R toolkit for enrichment analysis.  <img src="Fig/GSEAGOUI.png" align="right" width="120" />
-<br>
+# GseaGoUI <img src="Fig/GSEAGOUI.png" align="right" width="120" />
+## A R toolkit for enrichment analysis.  
 
 
 ## Overview
