@@ -55,16 +55,18 @@
 ##### UI ########
   ui <- navbarPage("GseaGoUI",
 ###############################################################################################################################################
-         tabPanel("Enrichment Analysis",
+      navbarMenu("Enrichment Analysis",
+#####*********** Basic Enrichment Analysis ***********#####
+         tabPanel("Basic",
                   fluidPage(
                     # https://stackoverflow.com/questions/57037758/r-shiny-how-to-color-margin-of-title-panel
                     titlePanel(h1("GseaGoUI",
                                   style='background-color:#e6d5f2;
-                               color:#474973;
-                               font-weight: 500;
-                               font-family: Arial Black;
-                               line-height: 1.2;
-                               padding-left: 15px'
+                                         color:#474973;
+                                         font-weight: 500;
+                                         font-family: Arial Black;
+                                         line-height: 1.2;
+                                         padding-left: 15px'
                                  )
                                ),
 
@@ -259,13 +261,13 @@
                                  )
                       )
                     )
-                  )
+                  ),
          ),
+#####*********** MultiGroup Enrichment Analysis ***********#####
+         tabPanel("MultiGroup")
+      ),
 ###############################################################################################################################################
          tabPanel("Custom Gene Sets"),
-###############################################################################################################################################
-         tabPanel("MultiGroup Enrichment Analysis"),
-
 ###############################################################################################################################################
          navbarMenu("Visualization",
                     tabPanel("From official GSEA results"),
