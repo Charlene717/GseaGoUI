@@ -59,7 +59,7 @@
                       # style='background-color:#a7c1d9; color:#0c3d6b; font-family: Arial Black' ),
 ###############################################################################################################################################
       navbarMenu("Enrichment Analysis",
-                 img(src = "GSEAGO.png",
+                 img(src = "GSEAGOUI.png",
                      height = "120px", width = "110px",
                      align = "center"),
 
