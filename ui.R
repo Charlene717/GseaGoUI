@@ -90,17 +90,24 @@
                       mainPanel(
                         tabsetPanel(
                           tabPanel("Data preprocessing",
+                                   column(3,
                                    h3("Fliter by Phenotype"),
                                    textInput("FliterByPhenotype", label = "Phenotype section","sample_type"),
                                    textInput("FliterByPhenotype2", label = "Group section","Recurrent Tumor, Primary Tumor"),
                                    h3("Fliter by Gene expression"),
                                    textInput("FliterByGeneExp", label = "Gene name","TP53"),
-                                   textInput("MaxGeneExp", label = "Max GeneExp",""),
-                                   textInput("MinGeneExp", label = "Min GeneExp",""),
-                                   actionButton(inputId="FilterSet", label="Filter", icon=icon(name = "fa-solid fa-filter-circle-xmark")) # https://fontawesomeicons.com/
+                                   column(6,
+                                   textInput("MaxGeneExp", label = "Max GeneExp",""),),
+                                   column(6,
+                                   textInput("MinGeneExp", label = "Min GeneExp",""),),
+                                   br(),
+                                   actionButton(inputId="FilterSet", label="Filter", icon=icon(name = "filter-circle-xmark")) # https://fontawesomeicons.com/
+                                   ),
+
                           ),
 
                           navbarMenu("Group setting",
+
                                      tabPanel("Group by Pheno",
                                               column(6,
                                                      fluidPage(plotOutput("DistPlt2"))
@@ -112,7 +119,7 @@
                                                      textInput("PhenoType1Set", label = "Group 1","Recurrent Tumor"),
                                                      textInput("PhenoType2Set", label = "Group 2","Primary Tumor"),
                                                      hr(),
-                                                     actionButton(inputId="DistPlot2", label="Set group", icon=icon(name = "gears")) # https://fontawesomeicons.com/
+                                                     actionButton(inputId="DistPlot2", label="See Dist", icon=icon(name = "photo")) # https://fontawesomeicons.com/
 
                                               )
                                      ),
@@ -120,7 +127,7 @@
                                                 column(6,
                                                        fluidPage(plotOutput("DistPlt"))
                                                 ),
-                                                column(3,
+                                                column(4,
                                                        # br(),
                                                        h3("Group by Gene Expression"),
                                                        hr(),
@@ -135,13 +142,12 @@
                                                        column(6,
                                                        textInput("LowBoundGeneExp", label = "Lower Cutoff","1")),
                                                        column(12,hr()),
-                                                       actionButton(inputId="DistPlot", label="Set group", icon=icon(name = "gears")) # https://fontawesomeicons.com/
+                                                       actionButton(inputId="DistPlot", label="See Dist", icon=icon(name = "photo")) # https://fontawesomeicons.com/
                                                 )
                                               )
                           ),
 
                           tabPanel("DEG setting",
-
                                     h3("Filter"),
                                     hr(),
                                     textInput("LogFCSet", label = "LogFC Cutoff","1"),
@@ -154,13 +160,20 @@
                                    column(6,
                                    h3("GSEA Analysis"),
                                    hr(),
+                                   selectizeInput("GSEAGroupSet", label = "Group by",
+                                                  choices = list("Phenotype" = "GSEAGroupbyPheno",
+                                                                 "Gene Expression" = "GSEAGroupbyGeneExp"),
+                                                  selected = "GroupbyPheno"),
+
                                    textInput("GSEASet_NumPermu", label = "Number of Permutations","1000"),
                                    selectizeInput("GSEASet_PermuType", label = "Permutation type",
                                                   choices = list("PhenoType" = "GSEASet_PhenoType",
                                                                  "GeneSet" = "GSEASet_GeneSet"),
                                                   selected = "GSEASet_GeneSet"),
-                                   textInput("GSEASet_MaxGSize", label = "Max geneset size","500"),
-                                   textInput("GSEASet_MinGSize", label = "Min geneset size","15"),
+                                   column(3,
+                                   textInput("GSEASet_MaxGSize", label = "Max geneset size","500"),),
+                                   column(3,
+                                   textInput("GSEASet_MinGSize", label = "Min geneset size","15"),)
                                    ),
                                    column(6,
                                           h3("Visualization settings"),
@@ -169,8 +182,7 @@
                                           textInput("GSEASet_BottomGS", label = "Bottom Gene Sets","10"),
                                           textInput("GSEASet_CustomizedGS", label = "Customized Gene Sets",""),
                                           br(),
-                                          br(),
-                                          actionButton("RunOFL", "Official files", icon=icon(name = "fas fa-file-download")),
+                                          actionButton("RunOFL", "Official files", icon=icon(name = "file-download")),
                                           actionButton("RunGSEA", "Run GSEA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                                          )
                           ),
@@ -179,6 +191,10 @@
                                    column(6,
                                    h3("ORA Enrichment Analysis"),
                                    hr(),
+                                   selectizeInput("ORAGroupSet", label = "Group by",
+                                                  choices = list("Phenotype" = "ORAGroupbyPheno",
+                                                                 "Gene Expression" = "ORAGroupbyGeneExp"),
+                                                  selected = "GroupbyPheno"),
                                    textInput("ORASet_MinOverlap", label = "Min Overlap","3"),
                                    textInput("ORASet_PValue", label = "P Value Cutoff","0.05"),
                                    textInput("ORASet_MinEnrich", label = "Min Enrichment","1.5"),
@@ -191,7 +207,7 @@
                                           textInput("GOSet_CustomizedGS", label = "Customized Gene Sets",""),
                                           br(),
                                           br(),
-                                          actionButton("RunOFL", "Official file", icon=icon(name = "fas fa-file-download")),
+                                          actionButton("RunOFL", "Official file", icon=icon(name = "file-download")),
                                           actionButton("RunGO", "Run ORA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
 
                                    )
