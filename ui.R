@@ -1,7 +1,7 @@
 
 
 ##### Load Packages  #####
-  #### Basic installation ####
+#### Basic installation ####
   ## Check whether the installation of those packages is required from basic
   Package.set <- c("tidyverse","ggplot2","Seurat","SeuratData","patchwork","plyr","eoffice","DT","shiny","shinyFiles")
   for (i in 1:length(Package.set)) {
@@ -181,9 +181,15 @@
                                                   selected = "GroupbyPheno"),
 
                                    textInput("GSEASet_NumPermu", label = "Number of Permutations","1000"),
-                                   selectizeInput("GSEASet_PermuType", label = "Permutation type",
-                                                  choices = list("PhenoType" = "GSEASet_PhenoType",
-                                                                 "GeneSet" = "GSEASet_GeneSet"),
+                                   selectizeInput("pAdjustMethod", label = "pAdjust Method",
+                                                  choices = list("BH Method" = "BH",
+                                                                 "BY Method" = "BY",
+                                                                 "bonferroni Method" = "bonferroni",
+                                                                 "FDR Method" = "fdr",
+                                                                 "hommel Method" = "hommel",
+                                                                 "holm Method" = "holm",
+                                                                 "hochberg Method" = "hochberg",
+                                                                 "None" = "none"),
                                                   selected = "GSEASet_GeneSet"),
                                    column(3,
                                    textInput("GSEASet_MaxGSize", label = "Max geneset size","500"),),
@@ -220,7 +226,6 @@
                                           textInput("GOSet_TopGS", label = "TOP Gene Sets","10"),
                                           textInput("GOSet_BottomGS", label = "Bottom Gene Sets","10"),
                                           textInput("GOSet_CustomizedGS", label = "Customized Gene Sets",""),
-                                          br(),
                                           br(),
                                           actionButton("RunOFL", "Official file", icon=icon(name = "file-download")),
                                           actionButton("RunGO", "Run ORA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
