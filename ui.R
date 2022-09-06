@@ -192,9 +192,9 @@
                                                                  "None" = "none"),
                                                   selected = "GSEASet_GeneSet"),
                                    column(3,
-                                   textInput("GSEASet_MaxGSize", label = "Max geneset size","500"),),
+                                   textInput("GSEASet_MinGSize", label = "Min geneset size","15"),),
                                    column(3,
-                                   textInput("GSEASet_MinGSize", label = "Min geneset size","15"),)
+                                   textInput("GSEASet_MaxGSize", label = "Max geneset size","500"),)
                                    ),
                                    column(6,
                                           h3("Visualization settings"),
