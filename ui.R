@@ -72,16 +72,23 @@ ui <- navbarPage(
                     tabPanel
                     ("Data preprocessing",
                       column
-                      ( 3, h3("Fliter by Phenotype"),
-                        textInput("FliterByPhenotype", label = "Phenotype section","sample_type"),
-                        textInput("FliterByPhenotype2", label = "Group section","Recurrent Tumor, Primary Tumor"),
-                        h3("Fliter by Gene expression"),
-                        textInput("FliterByGeneExp", label = "Gene name","TP53"),
-                        column(6,textInput("MaxGeneExp", label = "Max GeneExp",""),),
-                        column(6,textInput("MinGeneExp", label = "Min GeneExp",""),),
+                      ( 4, h3("Fliter by Phenotype"),
+                        textInput("FliterByPhenotype", label = "Phenotype section","gender"),
+                        textInput("FliterByPhenotype2", label = "Group section","FEMALE"), # c("Recurrent Tumor", "Primary Tumor")
+                        h3("Fliter by Gene Expression"),
+                        textInput("FliterByGeneExp", label = "Gene Name","TP53"),
+                        column(5,textInput("MaxGeneExp", label = "Max GeneExp","10"),),
+                        column(5,textInput("MinGeneExp", label = "Min GeneExp","2"),),
                         br(),
                         actionButton(inputId="FilterSet", label="Filter", icon=icon(name = "filter-circle-xmark")) # https://fontawesomeicons.com/
+                      ),
+                      column
+                      ( 3,h3("UpdataGeneName"),
+                        # radioButtons("UpdataGeneName", h3("Updata Gene Name"),
+                        #               choices = list("Yes" = 1, "No" = 2), selected = 1),
+                        actionButton(inputId="UpdateGeneName", label="Update", icon=icon(name = "refresh")) # https://fontawesomeicons.com/
                       )
+
                     ),
 
                     #####*********** Group setting ***********#####
@@ -90,14 +97,16 @@ ui <- navbarPage(
                        tabPanel
                        ("Group by Pheno",
                          column(6, fluidPage(plotOutput("DistPlt2"))),
-                         column(3, h3("Group by Phenotype"),
-                                hr(),
-                                textInput("PhenoColSet", label = "Phenotype","sample_type"),
-                                textInput("PhenoType1Set", label = "Group 1","Recurrent Tumor"),
-                                textInput("PhenoType2Set", label = "Group 2","Primary Tumor"),
-                                hr(),
-                                actionButton(inputId="DistPlot2", label="See Dist", icon=icon(name = "photo")) # https://fontawesomeicons.com/
-                               )
+                         column
+                         (3, h3("Group by Phenotype"),
+                          hr(),
+                          textInput("PhenoColSet", label = "Phenotype","sample_type"),
+                          textInput("PhenoType1Set", label = "Group 1","Recurrent Tumor"),
+                          textInput("PhenoType2Set", label = "Group 2","Primary Tumor"),
+                          hr(),
+                          actionButton(inputId="DistPlot2", label="See Dist", icon=icon(name = "photo")), # https://fontawesomeicons.com/
+                          actionButton(inputId="CheckPheno", label="Check", icon=icon(name = "check-square-o")) # https://fontawesomeicons.com/
+                         )
                        ),
                        tabPanel
                        ("Group by GeneExp",
@@ -106,7 +115,7 @@ ui <- navbarPage(
                          (4, # br(),
                           h3("Group by Gene Expression"),
                           hr(),
-                          textInput("GeneNameSet", label = "Gene name","TP53"),
+                          textInput("GeneNameSet", label = "Gene name","CLU"),
                           selectizeInput
                           ("GroupByGeneStats", label = "Cutoff of GeneExp",
                             choices = list("Mean" = "Mean", "Mean+1SD" = "Mean1SD", "Mean+2SD" = "Mean2SD", "Mean+3SD" = "Mean3SD",
@@ -116,7 +125,9 @@ ui <- navbarPage(
                           column(6, textInput("UpBoundGeneExp", label = "Upper Cutoff","1")),
                           column(6, textInput("LowBoundGeneExp", label = "Lower Cutoff","1")),
                           column(12,hr()),
-                          actionButton(inputId="DistPlot", label="See Dist", icon=icon(name = "photo")) # https://fontawesomeicons.com/
+                          actionButton(inputId="DistPlot", label="See Dist", icon=icon(name = "photo")), # https://fontawesomeicons.com/
+                          actionButton(inputId="CheckGE", label="Check", icon=icon(name = "check-square-o")) # https://fontawesomeicons.com/
+
                          )
                        )
                     ),
@@ -210,7 +221,7 @@ ui <- navbarPage(
                 ##### View Input Page #####
                 navbarMenu
                 ("View Input",
-                 tabPanel("GeneExp", fluidPage(fluidRow(dataTableOutput("GeneExpOut")))),
+                 tabPanel("GeneExp",fluidPage(fluidRow(dataTableOutput("GeneExpOut")))),
                  tabPanel("Annotation", fluidPage(fluidRow(dataTableOutput("AnnoOut")))),
                  tabPanel("Gene sets", fluidPage(fluidRow(dataTableOutput("GenesetsOut"))))
                 ),
@@ -218,26 +229,41 @@ ui <- navbarPage(
                 ##### Data preprocessing Result Page #####
                 navbarMenu
                 ("Cleaned data",
-                  tabPanel("GeneExp", fluidPage(fluidRow(dataTableOutput("GeneExpCleanOut")))),
-                  tabPanel("Annotation", fluidPage(fluidRow(dataTableOutput("AnnoCleanOut"))))
+                  tabPanel("GeneExp", br(),actionButton(inputId="SaveCDGE", label="SaveTSV", icon=icon(name = "file-text-o")), # https://fontawesomeicons.com/
+                           hr(),
+                           fluidPage(fluidRow(dataTableOutput("GeneExpCleanOut")))),
+                  tabPanel("Annotation", br(),actionButton(inputId="SaveCDGE", label="SaveTSV", icon=icon(name = "file-text-o")), # https://fontawesomeicons.com/
+                           hr(),
+                           fluidPage(fluidRow(dataTableOutput("AnnoCleanOut"))))
                 ),
 
                 ##### Analysis Result Page: DEG Analysis #####
                 navbarMenu
                 ("DEG Analysis",
-                  tabPanel("DEG MTX",fluidPage(fluidRow(dataTableOutput("DEGMTX")))),
-                  tabPanel("Volcano plot",fluidPage(fluidRow(plotOutput("VolcanoPlot"))))
+                  tabPanel("DEG MTX",br(),actionButton(inputId="SaveDEG", label="SaveTSV", icon=icon(name = "file-text-o")), # https://fontawesomeicons.com/
+                           hr(),
+                           fluidPage(fluidRow(dataTableOutput("DEGMTX")))),
+                  tabPanel("Volcano plot",br(),actionButton(inputId="SaveVolc", label="SavePDF", icon=icon(name = "file-picture-o")), # https://fontawesomeicons.com/
+                           hr(),
+                           fluidPage(fluidRow(plotOutput("VolcanoPlot"))))
                 ),
 
                 ##### Analysis Result Page: GSEA Analysis #####
                 navbarMenu
                 ("GSEA Analysis",
-                  tabPanel("Bar plot", fluidPage(plotOutput("GSEABarPlot",height = "800px", width = "1500px"))),
-                  tabPanel("Dot plot", fluidPage(plotOutput("GSEADotPlot",height = "800px", width = "1000px"))),
-                  tabPanel("UpSet Plot", fluidPage(plotOutput("UpSetPlot",height = "800px", width = "1500px"))),
-                  tabPanel("Enrichment plot", fluidPage(plotOutput("GseaPlot",height = "1000px", width = "1500px"))),
-                  tabPanel("Overlay Enrichment plot", fluidPage(plotOutput("OverlayGseaPlot",height = "600px", width = "800px"))),
-                  # tabPanel("SentFreq Dimension Reduction", fluidPage(img(src = "Monocle3_UMAP.PNG", height = "450px", width = "1700px", align = "center"), br()))
+                  # tabPanel("Bar plot", fluidPage(plotOutput("GSEABarPlot",height = "800px", width = "1500px"))),
+                  # tabPanel("Dot plot", fluidPage(plotOutput("GSEADotPlot",height = "800px", width = "1000px"))),
+                  # tabPanel("UpSet Plot", fluidPage(plotOutput("UpSetPlot",height = "800px", width = "1500px"))),
+                  # tabPanel("Enrichment plot", fluidPage(plotOutput("GseaPlot",height = "1000px", width = "1500px"))),
+                  # tabPanel("Overlay Enrichment plot", fluidPage(plotOutput("OverlayGseaPlot",height = "600px", width = "800px"))),
+                  # # tabPanel("SentFreq Dimension Reduction", fluidPage(img(src = "Monocle3_UMAP.PNG", height = "450px", width = "1700px", align = "center"), br()))
+                  tabPanel("Bar plot", fluidPage(br(),img(src = "BarPlot.png", height = "700px", width = "600px", align = "center"),br())),
+                  tabPanel("Dot plot", fluidPage(br(),img(src = "Dotplot.png", height = "700px", width = "600px", align = "center"),br())),
+                  tabPanel("UpSet Plot", fluidPage(br(),img(src = "UpSetPlot.PNG", height = "700px", width = "900px", align = "center"),br())),
+                  tabPanel("Enrichment plot", fluidPage(br(),img(src = "Enrichment plot.PNG", height = "700px", width = "600px", align = "center"),br())),
+                  tabPanel("Overlay Enrichment plot", fluidPage(br(),img(src = "Overlay Enrichment plot.PNG", height = "700px", width = "600px", align = "center"),br())),
+                  tabPanel("Gene Pathway Heatmap", fluidPage(br(),img(src = "GenePathwayHeatmap.PNG", height = "1400px", width = "1200px", align = "center"),br())),
+
                 ),
                 ##### Analysis Result Page: GO Analysis #####
                 navbarMenu
