@@ -51,7 +51,7 @@ server <- function(input, output, session){
       })
 
     #### DEG ####
-    DE_Ext.df <- eventReactive(c(input$RunDEG), {
+    DE_Ext.lt <- eventReactive(c(input$RunDEG), {
       GeneExp.df <- input$File_GeneExp$datapath %>%
         read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
       Anno.df <- input$File_Anno$datapath %>%
@@ -64,39 +64,57 @@ server <- function(input, output, session){
         FUN_DEG_Analysis(GeneExp.df, Anno.df,
                          GroupType = input$PhenoColSet ,GroupCompare = c(input$PhenoType1Set,input$PhenoType2Set),
                          ThrSet = list(LogFC = c("logFC", input$LogFCSet),
-                                       pVal = c("PValue",input$PvalueCSet)),
+                                       pVal = c("PValue",input$PvalueSet)),
                          TarGeneName = input$GeneNameSet, GroupMode = Mode_Group, SampleID = "X_INTEGRATION",
                          Save.Path = Save.Path, SampleName = SampleName, AnnoName = "AvB")
       DE_Extract.df <- DEG_ANAL.lt[["DE_Extract.df"]]
+      Group1 <- DEG_ANAL.lt[["DE_Extract_FltH.set"]]
+      Group2 <- DEG_ANAL.lt[["DE_Extract_FltL.set"]]
       rownames(DE_Extract.df) <- seq(1:nrow(DE_Extract.df))
-      DE_Extract.df
 
+      DE_Ext.lt <- list()
+      DE_Ext.lt[["DE_Extract.df"]] <- DE_Extract.df
+      DE_Ext.lt[["Group1.set"]] <- Group1
+      DE_Ext.lt[["Group2.set"]] <- Group2
+
+      DE_Ext.lt
+
+    })
+
+    DE_Ext.df <- reactive({
+      DEExt.lt <- DE_Ext.lt()
+      DEExt.df <- DEExt.lt[["DE_Extract.df"]]
     })
 
     # #### VolcanoPlot ####
     Plot.Volcano <- eventReactive(c(input$RunDEG), {
-      GeneExp.df <- input$File_GeneExp$datapath %>%
-        read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
-      Anno.df <- input$File_Anno$datapath %>%
-        read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
+      # GeneExp.df <- input$File_GeneExp$datapath %>%
+      #   read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
+      # Anno.df <- input$File_Anno$datapath %>%
+      #   read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
+      #
+      # # AnnoSet.lt <- list(GroupType = "sample_type", GroupCompare = c("Primary Tumor","Recurrent Tumor") )
+      # # Thr.lt <- list(LogFC = c("logFC",1), pVal = c("PValue",0.05) )
+      #
+      # DEG_ANAL.lt <-
+      #   FUN_DEG_Analysis(GeneExp.df, Anno.df,
+      #                    GroupType = input$PhenoColSet ,GroupCompare = c(input$PhenoType1Set,input$PhenoType2Set),
+      #                    ThrSet = list(LogFC = c("logFC", input$LogFCSet),
+      #                                  pVal = c("PValue",input$PvalueSet)),
+      #                    TarGeneName = input$GeneNameSet, GroupMode = Mode_Group, SampleID = "X_INTEGRATION",
+      #                    Save.Path = Save.Path, SampleName = SampleName, AnnoName = "AvB")
+      # DE_Extract.df <- DEG_ANAL.lt[["DE_Extract.df"]]
 
-      # AnnoSet.lt <- list(GroupType = "sample_type", GroupCompare = c("Primary Tumor","Recurrent Tumor") )
-      # Thr.lt <- list(LogFC = c("logFC",1), pVal = c("PValue",0.05) )
 
-      DEG_ANAL.lt <-
-        FUN_DEG_Analysis(GeneExp.df, Anno.df,
-                         GroupType = input$PhenoColSet ,GroupCompare = c(input$PhenoType1Set,input$PhenoType2Set),
-                         ThrSet = list(LogFC = c("logFC", input$LogFCSet),
-                                       pVal = c("PValue",input$PvalueCSet)),
-                         TarGeneName = input$GeneNameSet, GroupMode = Mode_Group, SampleID = "X_INTEGRATION",
-                         Save.Path = Save.Path, SampleName = SampleName, AnnoName = "AvB")
-      DE_Extract.df <- DEG_ANAL.lt[["DE_Extract.df"]]
-      rownames(DE_Extract.df) <- seq(1:nrow(DE_Extract.df))
-      Pos.List <- DEG_ANAL.lt[["DE_Extract_FltH.set"]]
-      Neg.List <- DEG_ANAL.lt[["DE_Extract_FltL.set"]]
-      Plot.VolcanoPlot <- VolcanoPlot(DE_Extract.df %>% as.data.frame(),
-                                      Pos.List,
-                                      Neg.List,
+      DEExt.lt <- DE_Ext.lt()
+      DEExt.df <- DEExt.lt[["DE_Extract.df"]]
+
+      # rownames(DEExt.df) <- seq(1:nrow(DEExt.df))
+      rownames(DEExt.df) <- DEExt.df[,"Gene"]
+      Pos.List <- DEExt.lt[["DE_Extract_FltH.set"]]
+      Neg.List <- DEExt.lt[["DE_Extract_FltL.set"]]
+      Plot.VolcanoPlot <- VolcanoPlot(DEExt.df %>% as.data.frame(),
+                                      Pos.List, Neg.List,
                                       log2FC = 1, PValueSet = 0.05,  ShowGeneNum = 5)
 
     })
@@ -105,30 +123,30 @@ server <- function(input, output, session){
 
     #### GSEA ####
     GSEAResult.lt <- eventReactive(c(input$RunGSEA), {
-      GeneExp.df <- input$File_GeneExp$datapath %>%
-        read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
-      Anno.df <- input$File_Anno$datapath %>%
-        read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
-
-      # AnnoSet.lt <- list(GroupType = "sample_type", GroupCompare = c("Primary Tumor","Recurrent Tumor") )
-      # Thr.lt <- list(LogFC = c("logFC",1), pVal = c("PValue",0.05) )
-
-      DEG_ANAL.lt <-
-        FUN_DEG_Analysis(GeneExp.df, Anno.df,
-                         GroupType = input$PhenoColSet ,GroupCompare = c(input$PhenoType1Set,input$PhenoType2Set),
-                         ThrSet = list(LogFC = c("logFC", input$LogFCSet),
-                                       pVal = c("PValue",input$PvalueCSet)),
-                         TarGeneName = input$GeneNameSet, GroupMode = Mode_Group, SampleID = "X_INTEGRATION",
-                         Save.Path = Save.Path, SampleName = SampleName, AnnoName = "AvB")
-      DE_Extract.df <- DEG_ANAL.lt[["DE_Extract.df"]]
+      # GeneExp.df <- input$File_GeneExp$datapath %>%
+      #   read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
+      # Anno.df <- input$File_Anno$datapath %>%
+      #   read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
+      #
+      # # AnnoSet.lt <- list(GroupType = "sample_type", GroupCompare = c("Primary Tumor","Recurrent Tumor") )
+      # # Thr.lt <- list(LogFC = c("logFC",1), pVal = c("PValue",0.05) )
+      #
+      # DEG_ANAL.lt <-
+      #   FUN_DEG_Analysis(GeneExp.df, Anno.df,
+      #                    GroupType = input$PhenoColSet ,GroupCompare = c(input$PhenoType1Set,input$PhenoType2Set),
+      #                    ThrSet = list(LogFC = c("logFC", input$LogFCSet),
+      #                                  pVal = c("PValue",input$PvalueSet)),
+      #                    TarGeneName = input$GeneNameSet, GroupMode = Mode_Group, SampleID = "X_INTEGRATION",
+      #                    Save.Path = Save.Path, SampleName = SampleName, AnnoName = "AvB")
+      # DE_Extract.df <- DEG_ANAL.lt[["DE_Extract.df"]]
 
       GeneSet.df <- input$File_GeneSet$datapath %>% read.csv(sep = "\t", header = F, check.names = F) %>% as.data.frame()
 
       GSEA_Result.lt <-
-        FUN_GSEA_ANAL(DE_Extract.df, pathwayGeneSet = GeneSet.df,
+        FUN_GSEA_ANAL(DE_Ext.df(), pathwayGeneSet = GeneSet.df,
                       TarGeneName = input$GeneNameSet, GroupMode = Mode_Group,
                       ThrSet = list(LogFC = c("logFC", input$LogFCSet),
-                                    pVal = c("PValue",input$PvalueCSet)),
+                                    pVal = c("PValue",input$PvalueSet)),
                       Species = "Homo sapiens", # Speices type can check by msigdbr_species()
                       Save.Path = Save.Path, SampleName = SampleName, AnnoName = "Path")
       GSEA_Result.lt
