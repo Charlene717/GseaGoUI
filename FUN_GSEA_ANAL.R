@@ -163,7 +163,8 @@ FUN_GSEA_ANAL = function(DE_Extract.df, pathwayGeneSet = Pathway.all,
       # gseaplot(x, geneSetID=1)
 
       ranks <- DE_Extract.df[,ThrSet[["LogFC"]][1]]
-      names(ranks) <- row.names(DE_Extract.df)
+      # names(ranks) <- row.names(DE_Extract.df)
+      names(ranks) <- DE_Extract.df[,"Gene"]
       head(ranks)
 
       geneList <- sort(ranks, decreasing = T)

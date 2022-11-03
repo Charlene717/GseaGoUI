@@ -18,13 +18,16 @@ server <- function(input, output, session){
     GeneExp_ReA = reactive({
       # GeneExp.df <- input$File_GeneExp$datapath %>% read.table(header=T, row.names = 1, sep="\t")
       GeneExp.df <- input$File_GeneExp$datapath %>% read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
+      GeneExp.df <- data.frame(Gene = row.names(GeneExp.df),GeneExp.df)
       colnames(GeneExp.df) <-  gsub("\\.", "-", colnames(GeneExp.df))
+
       GeneExp.df
     })
 
     AnnoOut_ReA = reactive({
       Anno.df <- input$File_Anno$datapath %>%
         read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
+
     })
 
     GeneSet_ReA = reactive({
@@ -228,5 +231,24 @@ server <- function(input, output, session){
         Plot.GSEAUpSet.Plot <-  GSEAResult[["OverlayGsea_Plot"]]
         Plot.GSEAUpSet.Plot
       })
+
+
+    ##############################################################################
+    #####*********** Save data ***********#####
+    # When the Submit button is clicked, save the form data
+    # observeEvent(input$SaveRData, {
+    #   saveData(formData())
+    # })
+
+    output$SaveVolcPDF <- downloadHandler(
+      filename = function(x) {
+        paste0(Sys.Date(), "_heatmap", ".pdf")
+      },
+      content = function(file) {
+        pdf(file)
+        print(Plot.Volcano())
+        graphics.off()
+      }
+    )
 
   }
