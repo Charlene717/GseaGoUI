@@ -48,12 +48,12 @@ VolcanoPlot <- function(Marker.df, Pos.List, Neg.List,
       theme_bw() +
       scale_color_manual(values = color) +
       labs(x="log2 (fold change)",y="-log10 (p-value)") +
-      geom_hline(yintercept = Yintercept, lty=8,col="black",lwd=0.8) +
-      geom_vline(xintercept = Xintercept, lty=8,col="black",lwd=0.8) +
+      geom_hline(yintercept = Yintercept, lty=12,col="black",lwd=0.8) +
+      geom_vline(xintercept = Xintercept, lty=12,col="black",lwd=0.8) +
       theme(legend.position = "none",
             panel.grid=element_blank(),
-            axis.title = element_text(size = 16),
-            axis.text = element_text(size = 14),
+            axis.title = element_text(size = 20),
+            axis.text = element_text(size = 20),
             text = element_text(size = 15)) +
       geom_point() +
       geom_text_repel(col = "#14213d", na.rm = TRUE,size = 6, box.padding = unit(0.45, "lines"), hjust = 1)+

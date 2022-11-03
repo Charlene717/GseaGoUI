@@ -253,17 +253,17 @@ ui <- navbarPage(
                 ##### Analysis Result Page: GSEA Analysis #####
                 navbarMenu
                 ("GSEA Analysis",
-                  # tabPanel("Bar plot", fluidPage(plotOutput("GSEABarPlot",height = "800px", width = "1500px"))),
-                  # tabPanel("Dot plot", fluidPage(plotOutput("GSEADotPlot",height = "800px", width = "1000px"))),
-                  # tabPanel("UpSet Plot", fluidPage(plotOutput("UpSetPlot",height = "800px", width = "1500px"))),
-                  # tabPanel("Enrichment plot", fluidPage(plotOutput("GseaPlot",height = "1000px", width = "1500px"))),
-                  # tabPanel("Overlay Enrichment plot", fluidPage(plotOutput("OverlayGseaPlot",height = "600px", width = "800px"))),
+                  tabPanel("Bar plot", fluidPage(plotOutput("GSEABarPlot",height = "800px", width = "1500px"))),
+                  tabPanel("Dot plot", fluidPage(plotOutput("GSEADotPlot",height = "800px", width = "1000px"))),
+                  tabPanel("UpSet Plot", fluidPage(plotOutput("UpSetPlot",height = "800px", width = "1500px"))),
+                  tabPanel("Enrichment plot", fluidPage(plotOutput("GseaPlot",height = "1000px", width = "1500px"))),
+                  tabPanel("Overlay Enrichment plot", fluidPage(plotOutput("OverlayGseaPlot",height = "600px", width = "800px"))),
                   # # tabPanel("SentFreq Dimension Reduction", fluidPage(img(src = "Monocle3_UMAP.PNG", height = "450px", width = "1700px", align = "center"), br()))
-                  tabPanel("Bar plot", fluidPage(br(),img(src = "BarPlot.png", height = "700px", width = "600px", align = "center"),br())),
-                  tabPanel("Dot plot", fluidPage(br(),img(src = "Dotplot.png", height = "700px", width = "600px", align = "center"),br())),
-                  tabPanel("UpSet Plot", fluidPage(br(),img(src = "UpSetPlot.PNG", height = "700px", width = "900px", align = "center"),br())),
-                  tabPanel("Enrichment plot", fluidPage(br(),img(src = "Enrichment plot.PNG", height = "700px", width = "600px", align = "center"),br())),
-                  tabPanel("Overlay Enrichment plot", fluidPage(br(),img(src = "Overlay Enrichment plot.PNG", height = "700px", width = "600px", align = "center"),br())),
+                  # tabPanel("Bar plot", fluidPage(br(),img(src = "BarPlot.png", height = "700px", width = "600px", align = "center"),br())),
+                  # tabPanel("Dot plot", fluidPage(br(),img(src = "Dotplot.png", height = "700px", width = "600px", align = "center"),br())),
+                  # tabPanel("UpSet Plot", fluidPage(br(),img(src = "UpSetPlot.PNG", height = "700px", width = "900px", align = "center"),br())),
+                  # tabPanel("Enrichment plot", fluidPage(br(),img(src = "Enrichment plot.PNG", height = "700px", width = "600px", align = "center"),br())),
+                  # tabPanel("Overlay Enrichment plot", fluidPage(br(),img(src = "Overlay Enrichment plot.PNG", height = "700px", width = "600px", align = "center"),br())),
                   tabPanel("Gene Pathway Heatmap", fluidPage(br(),img(src = "GenePathwayHeatmap.PNG", height = "1400px", width = "1200px", align = "center"),br())),
 
                 ),
