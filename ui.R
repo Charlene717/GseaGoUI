@@ -232,7 +232,7 @@ ui <- navbarPage(
                   tabPanel("GeneExp", br(),actionButton(inputId="SaveCDGE", label="SaveTSV", icon=icon(name = "file-text-o")), # https://fontawesomeicons.com/
                            hr(),
                            fluidPage(fluidRow(dataTableOutput("GeneExpCleanOut")))),
-                  tabPanel("Annotation", br(),actionButton(inputId="SaveCDGE", label="SaveTSV", icon=icon(name = "file-text-o")), # https://fontawesomeicons.com/
+                  tabPanel("Annotation", br(),actionButton(inputId="SaveCDAnno", label="SaveTSV", icon=icon(name = "file-text-o")), # https://fontawesomeicons.com/
                            hr(),
                            fluidPage(fluidRow(dataTableOutput("AnnoCleanOut"))))
                 ),
@@ -243,9 +243,11 @@ ui <- navbarPage(
                   tabPanel("DEG MTX",br(),actionButton(inputId="SaveDEG", label="SaveTSV", icon=icon(name = "file-text-o")), # https://fontawesomeicons.com/
                            hr(),
                            fluidPage(fluidRow(dataTableOutput("DEGMTX")))),
-                  tabPanel("Volcano plot",br(),actionButton(inputId="SaveVolc", label="SavePDF", icon=icon(name = "file-picture-o")), # https://fontawesomeicons.com/
+                  tabPanel("Volcano plot",br(),
+                           actionButton(inputId="SaveVolcPDF", label="SavePDF", icon=icon(name = "file-pdf")), # https://fontawesomeicons.com/
+                           actionButton(inputId="SaveVolcRData", label="SaveRData", icon=icon(name = "file-download")), # https://fontawesomeicons.com/
                            hr(),
-                           fluidPage(fluidRow(plotOutput("VolcanoPlot"))))
+                           fluidPage(fluidRow(plotOutput("VolcPlt",height = "500px", width = "500px"))))
                 ),
 
                 ##### Analysis Result Page: GSEA Analysis #####

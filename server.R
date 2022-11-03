@@ -67,7 +67,38 @@ server <- function(input, output, session){
       DE_Extract.df <- DEG_ANAL.lt[["DE_Extract.df"]]
       rownames(DE_Extract.df) <- seq(1:nrow(DE_Extract.df))
       DE_Extract.df
+
     })
+
+    # #### VolcanoPlot ####
+    Plot.Volcano <- eventReactive(c(input$RunDEG), {
+      GeneExp.df <- input$File_GeneExp$datapath %>%
+        read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
+      Anno.df <- input$File_Anno$datapath %>%
+        read.csv(sep = "\t", row.names = 1, check.names = F) %>% as.data.frame()
+
+      # AnnoSet.lt <- list(GroupType = "sample_type", GroupCompare = c("Primary Tumor","Recurrent Tumor") )
+      # Thr.lt <- list(LogFC = c("logFC",1), pVal = c("PValue",0.05) )
+
+      DEG_ANAL.lt <-
+        FUN_DEG_Analysis(GeneExp.df, Anno.df,
+                         GroupType = input$PhenoColSet ,GroupCompare = c(input$PhenoType1Set,input$PhenoType2Set),
+                         ThrSet = list(LogFC = c("logFC", input$LogFCSet),
+                                       pVal = c("PValue",input$PvalueCSet)),
+                         TarGeneName = input$GeneNameSet, GroupMode = Mode_Group, SampleID = "X_INTEGRATION",
+                         Save.Path = Save.Path, SampleName = SampleName, AnnoName = "AvB")
+      DE_Extract.df <- DEG_ANAL.lt[["DE_Extract.df"]]
+      rownames(DE_Extract.df) <- seq(1:nrow(DE_Extract.df))
+      Pos.List <- DEG_ANAL.lt[["DE_Extract_FltH.set"]]
+      Neg.List <- DEG_ANAL.lt[["DE_Extract_FltL.set"]]
+      Plot.VolcanoPlot <- VolcanoPlot(DE_Extract.df %>% as.data.frame(),
+                                      Pos.List,
+                                      Neg.List,
+                                      log2FC = 1, PValueSet = 0.05,  ShowGeneNum = 5)
+
+    })
+
+
 
     #### GSEA ####
     GSEAResult.lt <- eventReactive(c(input$RunGSEA), {
@@ -142,6 +173,20 @@ server <- function(input, output, session){
     #   Plot.Dist.Plot <- Plot.Dist.lt[["TGeneDen_SD_Q.p"]]
     #   Plot.Dist.Plot
     # })
+
+
+    #### VolcanoPlot ####
+    output$VolcPlt <-
+      renderPlot({
+        if (length(input$File_GeneExp)>0){
+          Plot.Dist.Plot <- Plot.Volcano()
+          Plot.Dist.Plot
+        }else{
+          print("Welcome to GseaGoUI!" %>% as.data.frame())
+        }
+      })
+
+    VolcanoPlot
 
     #### DEG ####
     output$DEGMTX <-
