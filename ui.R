@@ -138,7 +138,7 @@ ui <- navbarPage(
                       h3("Filter"),
                       hr(),
                       textInput("LogFCSet", label = "LogFC Cutoff","1"),
-                      textInput("PvalueCSet", label = "P Value Cutoff","0.05"),
+                      textInput("PvalueSet", label = "P Value Cutoff","0.05"),
                       hr(),
                       actionButton(inputId="RunDEG", label="Run DEG", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                     ),
