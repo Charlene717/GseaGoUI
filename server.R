@@ -1,16 +1,6 @@
+##### Presetting ######
 rm(list = ls())
 options(shiny.maxRequestSize=300*1024^2)
-
-# ##### Current path and new folder setting* #####
-# ProjectName = "TCGA"
-# Sampletype = "LGG"
-# TarGene_name = "TP53"
-# Version = paste0(Sys.Date(),"_",ProjectName,"_",Sampletype,"_",TarGene_name)
-# Save.Path = paste0(getwd(),"/",Version)
-# ## Create new folder
-# if (!dir.exists(Save.Path)){
-#   dir.create(Save.Path)
-# }
 
 server <- function(input, output, session){
   ##### Reactive #####
@@ -62,7 +52,7 @@ server <- function(input, output, session){
 
       DEG_ANAL.lt <-
         FUN_DEG_Analysis(GeneExp.df, Anno.df,
-                         GroupType = input$PhenoColSet ,GroupCompare = c(input$PhenoType1Set,input$PhenoType2Set),
+                         GroupType = input$GrpSetPhenoCol ,GroupCompare = c(input$GrpSetPhenoType1,input$GrpSetPhenoType2),
                          ThrSet = list(LogFC = c("logFC", input$LogFCSet),
                                        pVal = c("PValue",input$PvalueSet)),
                          TarGeneName = input$GeneNameSet, GroupMode = Mode_Group, SampleID = "X_INTEGRATION",
@@ -98,7 +88,7 @@ server <- function(input, output, session){
       #
       # DEG_ANAL.lt <-
       #   FUN_DEG_Analysis(GeneExp.df, Anno.df,
-      #                    GroupType = input$PhenoColSet ,GroupCompare = c(input$PhenoType1Set,input$PhenoType2Set),
+      #                    GroupType = input$GrpSetPhenoCol ,GroupCompare = c(input$GrpSetPhenoType1,input$GrpSetPhenoType2),
       #                    ThrSet = list(LogFC = c("logFC", input$LogFCSet),
       #                                  pVal = c("PValue",input$PvalueSet)),
       #                    TarGeneName = input$GeneNameSet, GroupMode = Mode_Group, SampleID = "X_INTEGRATION",
@@ -133,7 +123,7 @@ server <- function(input, output, session){
       #
       # DEG_ANAL.lt <-
       #   FUN_DEG_Analysis(GeneExp.df, Anno.df,
-      #                    GroupType = input$PhenoColSet ,GroupCompare = c(input$PhenoType1Set,input$PhenoType2Set),
+      #                    GroupType = input$GrpSetPhenoCol ,GroupCompare = c(input$GrpSetPhenoType1,input$GrpSetPhenoType2),
       #                    ThrSet = list(LogFC = c("logFC", input$LogFCSet),
       #                                  pVal = c("PValue",input$PvalueSet)),
       #                    TarGeneName = input$GeneNameSet, GroupMode = Mode_Group, SampleID = "X_INTEGRATION",

@@ -73,20 +73,20 @@ ui <- navbarPage(
                     ("Data preprocessing",
                       column
                       ( 4, h3("Fliter by Phenotype"),
-                        textInput("FliterByPhenotype", label = "Phenotype section","gender"),
-                        textInput("FliterByPhenotype2", label = "Group section","FEMALE"), # c("Recurrent Tumor", "Primary Tumor")
+                        textInput("FltByPhenoSet1", label = "Phenotype section","gender"),
+                        textInput("FltByPhenoSet2", label = "Group section","FEMALE"), # c("Recurrent Tumor", "Primary Tumor")
                         h3("Fliter by Gene Expression"),
-                        textInput("FliterByGeneExp", label = "Gene Name","TP53"),
-                        column(5,textInput("MaxGeneExp", label = "Max GeneExp","10"),),
-                        column(5,textInput("MinGeneExp", label = "Min GeneExp","2"),),
+                        textInput("FltByGESetName", label = "Gene Name","TP53"),
+                        column(5,textInput("FltByGESetMax", label = "Max GeneExp","10"),),
+                        column(5,textInput("FltByGESetMin", label = "Min GeneExp","2"),),
                         br(),
-                        actionButton(inputId="FilterSet", label="Filter", icon=icon(name = "filter-circle-xmark")) # https://fontawesomeicons.com/
+                        actionButton(inputId="ActFltSet", label="Filter", icon=icon(name = "filter-circle-xmark")) # https://fontawesomeicons.com/
                       ),
                       column
                       ( 3,h3("UpdataGeneName"),
                         # radioButtons("UpdataGeneName", h3("Updata Gene Name"),
                         #               choices = list("Yes" = 1, "No" = 2), selected = 1),
-                        actionButton(inputId="UpdateGeneName", label="Update", icon=icon(name = "refresh")) # https://fontawesomeicons.com/
+                        actionButton(inputId="ActUPDGName", label="Update", icon=icon(name = "refresh")) # https://fontawesomeicons.com/
                       )
 
                     ),
@@ -100,9 +100,9 @@ ui <- navbarPage(
                          column
                          (3, h3("Group by Phenotype"),
                           hr(),
-                          textInput("PhenoColSet", label = "Phenotype","sample_type"),
-                          textInput("PhenoType1Set", label = "Group 1","Recurrent Tumor"),
-                          textInput("PhenoType2Set", label = "Group 2","Primary Tumor"),
+                          textInput("GrpSetPhenoCol", label = "Phenotype","sample_type"),
+                          textInput("GrpSetPhenoType1", label = "Group 1","Recurrent Tumor"),
+                          textInput("GrpSetPhenoType2", label = "Group 2","Primary Tumor"),
                           hr(),
                           actionButton(inputId="DistPlot2", label="See Dist", icon=icon(name = "photo")), # https://fontawesomeicons.com/
                           actionButton(inputId="CheckPheno", label="Check", icon=icon(name = "check-square-o")) # https://fontawesomeicons.com/
@@ -122,8 +122,8 @@ ui <- navbarPage(
                                            "Median" = "Median" , "Quartiles" = "Quartiles",
                                            "Customize Cutoff" = "CustomizeCutoff"),
                             selected = "Mean1SD"),
-                          column(6, textInput("UpBoundGeneExp", label = "Upper Cutoff","1")),
-                          column(6, textInput("LowBoundGeneExp", label = "Lower Cutoff","1")),
+                          column(6, textInput("GrpSetGEUpCF", label = "Upper Cutoff","1")),
+                          column(6, textInput("GrpSetGELwCF", label = "Lower Cutoff","1")),
                           column(12,hr()),
                           actionButton(inputId="DistPlot", label="See Dist", icon=icon(name = "photo")), # https://fontawesomeicons.com/
                           actionButton(inputId="CheckGE", label="Check", icon=icon(name = "check-square-o")) # https://fontawesomeicons.com/
@@ -149,12 +149,12 @@ ui <- navbarPage(
                       column
                       (6, h3("GSEA Analysis"),
                        hr(),
-                       selectizeInput("GSEAGroupSet", label = "Group by",
+                       selectizeInput("GSEASet_Grp", label = "Group by",
                                        choices = list("Phenotype" = "GSEAGroupbyPheno",
                                                       "Gene Expression" = "GSEAGroupbyGeneExp"),
                                        selected = "GroupbyPheno"),
 
-                       textInput("GSEASet_NumPermu", label = "Number of Permutations","1000"),
+                       textInput("GSEASet_PermuNum", label = "Number of Permutations","1000"),
                        selectizeInput
                        ("pAdjustMethod", label = "pAdjust Method",
                          choices = list("BH Method" = "BH",
@@ -177,7 +177,7 @@ ui <- navbarPage(
                        textInput("GSEASet_BottomGS", label = "Bottom Gene Sets","10"),
                        textInput("GSEASet_CustomizedGS", label = "Customized Gene Sets",""),
                        br(),
-                       actionButton("RunOFL", "Official files", icon=icon(name = "file-download")),
+                       actionButton("RunOFLGSEA", "Official files", icon=icon(name = "file-download")),
                        actionButton("RunGSEA", "Run GSEA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                       )
                     ),
@@ -188,7 +188,7 @@ ui <- navbarPage(
                              column
                              (6, h3("ORA Enrichment Analysis"),
                               hr(),
-                              selectizeInput("ORAGroupSet", label = "Group by",
+                              selectizeInput("ORASet_Grp", label = "Group by",
                                               choices = list("Phenotype" = "ORAGroupbyPheno",
                                                              "Gene Expression" = "ORAGroupbyGeneExp"),
                                               selected = "GroupbyPheno"),
@@ -203,7 +203,7 @@ ui <- navbarPage(
                               textInput("GOSet_BottomGS", label = "Bottom Gene Sets","10"),
                               textInput("GOSet_CustomizedGS", label = "Customized Gene Sets",""),
                               br(),
-                              actionButton("RunOFL", "Official file", icon=icon(name = "file-download")),
+                              actionButton("RunOFLGO", "Official file", icon=icon(name = "file-download")),
                               actionButton("RunGO", "Run ORA", icon=icon(name = "gears")) # https://fontawesomeicons.com/
                              )
                     )
