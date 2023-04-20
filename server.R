@@ -1,6 +1,6 @@
 ##### Presetting ######
 rm(list = ls())
-options(shiny.maxRequestSize=300*1024^2)
+options(shiny.maxRequestSize=500*1024^2)
 
 server <- function(input, output, session){
   ##### Reactive #####
